@@ -1,13 +1,74 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="./src/styles.css" />
-  <script src="./src/script.js" defer></script>
-</head>
-<body>
-  
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Tic Tac Toe</title>
+		<link rel="stylesheet" href="./src/styles.css" />
+		<script src="./src/script.js" defer></script>
+	</head>
+
+	<body>
+		<!--Start screen should disappear once stuff start working-->
+		<div class="">
+			<h1>Tic Tac Toe</h1>
+			<!--Title-->
+
+			<div>
+				<!--First panel-->
+				<div>
+					<div>
+						<div>1</div>
+						<div>2</div>
+						<div>3</div>
+					</div>
+					<div>
+						<div>4</div>
+						<div>5</div>
+						<div>6</div>
+					</div>
+					<div>
+						<div>7</div>
+						<div>8</div>
+						<div>9</div>
+					</div>
+				</div>
+				<!--Make these into buttons allow an extra button to only appear once one is selected-->
+				<button>Player vs AI</button>
+				<button>Player vs Player</button>
+				<button>Proceed</button>
+			</div>
+
+			<div>
+				<h3>Pick Player 1's sign</h3>
+				<button>X</button>
+				<button>O</button>
+				<button>Back</button>
+				<button>Start</button>
+			</div>
+		</div>
+
+		<!--Board-->
+		<div>
+			<!--Just make a board-->
+			<!--Still deciding if a restart button will be used or only once game is finished-->
+			<button>Back to Main Menu</button>
+			<button>Restart</button>
+		</div>
+
+		<footer class="flex h-20 w-full items-center justify-center gap-2">
+			<div>
+				© Copyright 2024
+				<a
+					href="https://github.com/DefyingGravity10"
+					class="text-cyan-600 hover:text-cyan-500"
+					target="_blank"
+					>DefyingGravity10</a
+				>
+			</div>
+			<a href="https://github.com/DefyingGravity10" target="_blank"
+				><img src="./svg/github-mark.svg" alt="GitHub Logo" class="w-6"
+			/></a>
+		</footer>
+	</body>
 </html>
