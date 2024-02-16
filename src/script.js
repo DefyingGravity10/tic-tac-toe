@@ -34,6 +34,37 @@ function initializeGame() {
 		secondPage.classList.remove("hidden");
 		chosenMode = againstComputer.classList.contains("selected-mode") ? "Computer" : "Player";
 	});
+
+	const backButton = document.getElementById("back-button");
+	const startButton = document.getElementById("start-button");
+	const gameBoard = document.getElementById("board");
+	const xSymbol = document.getElementById("x-symbol");
+	const oSymbol = document.getElementById("o-symbol");
+	let chosenSymbol;
+
+	backButton.addEventListener("click", () => {
+		firstPage.classList.remove("hidden");
+		secondPage.classList.add("hidden");
+	});
+	xSymbol.addEventListener("click", () => {
+		if (!xSymbol.classList.contains("selected-mode")) {
+			xSymbol.classList.toggle("selected-mode");
+			oSymbol.classList.toggle("selected-mode");
+		}
+	});
+	oSymbol.addEventListener("click", () => {
+		if (!oSymbol.classList.contains("selected-mode")) {
+			xSymbol.classList.toggle("selected-mode");
+			oSymbol.classList.toggle("selected-mode");
+		}
+	});
+	startButton.addEventListener("click", () => {
+		secondPage.classList.add("hidden");
+		gameBoard.classList.remove("hidden");
+		chosenSymbol = xSymbol.classList.contains("selected-mode") ? "X" : "O";
+		console.log(chosenMode);
+		console.log(chosenSymbol);
+	});
 }
 
 initializeGame();

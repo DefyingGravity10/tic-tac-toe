@@ -40,18 +40,18 @@
 				<div
 					class="mb-8 flex w-full max-w-md items-center justify-around rounded-2xl bg-slate-400 p-1 sm:w-fit"
 				>
-					<button id="vs-computer"></button>
-					<button id="vs-player"></button>
+					<button class="selected-mode" id="x-symbol"></button>
+					<button id="o-symbol"></button>
 				</div>
 				<div class="flex w-full max-w-md justify-around">
-					<button class="rounded-2xl bg-red-200 p-3 text-2xl">Back</button>
-					<button class="rounded-2xl bg-green-200 p-3 text-2xl">Start</button>
+					<button class="rounded-2xl bg-red-200 p-3 text-2xl" id="back-button">Back</button>
+					<button class="rounded-2xl bg-green-200 p-3 text-2xl" id="start-button">Start</button>
 				</div>
 			</div>
 		</div>
 
 		<!--Board-->
-		<div class="hidden">
+		<div class="hidden" id="board">
 			<!--Just make a board-->
 			<!--Still deciding if a restart button will be used or only once game is finished-->
 			<div>
