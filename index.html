@@ -15,23 +15,26 @@
 			<h1 class="mb-8 font-['Open_Sans'] text-3xl font-bold xs:text-4xl sm:text-5xl">
 				TIC TAC TOE
 			</h1>
-			<div class="flex w-full flex-col items-center">
+			<div id="first-page" class="flex w-full flex-col items-center">
 				<!--First panel-->
 				<!--Make these into buttons allow an extra button to only appear once one is selected-->
 				<div
 					class="mb-8 flex w-full max-w-md items-center justify-around rounded-2xl bg-slate-400 p-1 sm:w-fit"
 				>
-					<button class="vs-computer"></button>
-					<button class="vs-player"></button>
+					<button id="vs-computer"></button>
+					<button id="vs-player"></button>
 				</div>
-				<h2 class="mb-8 font-['Open_Sans'] text-xl font-semibold xs:text-2xl sm:text-3xl">
-					PLAYER VS <span id="opponent">COMPUTER</span>
+				<h2
+					id="opponent"
+					class="mb-8 font-['Open_Sans'] text-xl font-semibold xs:text-2xl sm:text-3xl"
+				>
+					<span>PLAYER VS COMPUTER</span>
 				</h2>
 
-				<button class="rounded-2xl bg-yellow-200 p-3 text-2xl">PROCEED</button>
+				<button class="rounded-2xl bg-yellow-200 p-3 text-2xl" id="proceed-button">PROCEED</button>
 			</div>
 
-			<div class="hidden">
+			<div id="second-page" class="hidden">
 				<h3>Pick Player 1's sign</h3>
 				<button>X</button>
 				<button>O</button>
