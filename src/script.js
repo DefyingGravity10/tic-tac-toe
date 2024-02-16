@@ -5,6 +5,7 @@ function initializeGame() {
 	const opponent = document.getElementById("opponent");
 	const proceedButton = document.getElementById("proceed-button");
 	const secondPage = document.getElementById("second-page");
+	let chosenMode;
 
 	againstComputer.classList.add("selected-mode");
 
@@ -31,9 +32,7 @@ function initializeGame() {
 	proceedButton.addEventListener("click", () => {
 		firstPage.classList.add("hidden");
 		secondPage.classList.remove("hidden");
-
-		const chosenMode = againstComputer.classList.contains("selected-mode") ? "Computer" : "Player";
-		console.log(chosenMode);
+		chosenMode = againstComputer.classList.contains("selected-mode") ? "Computer" : "Player";
 	});
 }
 
