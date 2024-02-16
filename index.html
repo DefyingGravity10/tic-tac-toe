@@ -10,36 +10,28 @@
 
 	<body>
 		<!--Start screen should disappear once stuff start working-->
-		<div class="">
-			<h1>Tic Tac Toe</h1>
+		<div class="m-12 flex flex-col items-center">
 			<!--Title-->
-
-			<div>
+			<h1 class="mb-8 font-['Open_Sans'] text-3xl font-bold xs:text-4xl sm:text-5xl">
+				TIC TAC TOE
+			</h1>
+			<div class="flex w-full flex-col items-center">
 				<!--First panel-->
-				<div>
-					<div>
-						<div>1</div>
-						<div>2</div>
-						<div>3</div>
-					</div>
-					<div>
-						<div>4</div>
-						<div>5</div>
-						<div>6</div>
-					</div>
-					<div>
-						<div>7</div>
-						<div>8</div>
-						<div>9</div>
-					</div>
-				</div>
 				<!--Make these into buttons allow an extra button to only appear once one is selected-->
-				<button>Player vs AI</button>
-				<button>Player vs Player</button>
-				<button>Proceed</button>
+				<div
+					class="mb-8 flex w-full max-w-md items-center justify-around rounded-2xl bg-slate-400 p-1 sm:w-fit"
+				>
+					<button class="vs-computer"></button>
+					<button class="vs-player"></button>
+				</div>
+				<h2 class="mb-8 font-['Open_Sans'] text-xl font-semibold xs:text-2xl sm:text-3xl">
+					PLAYER VS <span id="opponent">COMPUTER</span>
+				</h2>
+
+				<button class="rounded-2xl bg-yellow-200 p-3 text-2xl">PROCEED</button>
 			</div>
 
-			<div>
+			<div class="hidden">
 				<h3>Pick Player 1's sign</h3>
 				<button>X</button>
 				<button>O</button>
@@ -49,9 +41,27 @@
 		</div>
 
 		<!--Board-->
-		<div>
+		<div class="hidden">
 			<!--Just make a board-->
 			<!--Still deciding if a restart button will be used or only once game is finished-->
+			<div>
+				<div>
+					<div>1</div>
+					<div>2</div>
+					<div>3</div>
+				</div>
+				<div>
+					<div>4</div>
+					<div>5</div>
+					<div>6</div>
+				</div>
+				<div>
+					<div>7</div>
+					<div>8</div>
+					<div>9</div>
+				</div>
+			</div>
+
 			<button>Back to Main Menu</button>
 			<button>Restart</button>
 		</div>
