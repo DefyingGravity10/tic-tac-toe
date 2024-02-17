@@ -10,12 +10,16 @@
 
 	<body>
 		<!--Start screen should disappear once stuff start working-->
-		<div class="m-12 flex flex-col items-center">
+		<div class="m-12 mb-0 flex flex-col items-center">
 			<!--Title-->
-			<h1 class="mb-8 font-['Open_Sans'] text-3xl font-bold xs:text-4xl sm:text-5xl">
-				TIC TAC TOE
-			</h1>
-			<div id="first-page" class="flex w-full flex-col items-center">
+			<div class="relative flex w-full items-center justify-center">
+				<button id="back-arrow-button" class="absolute left-0 mb-8 hidden"></button>
+				<h1 class="mb-8 font-['Open_Sans'] text-3xl font-bold xs:text-4xl sm:text-5xl">
+					TIC TAC TOE
+				</h1>
+			</div>
+
+			<div id="first-page" class="mb-11 flex w-full flex-col items-center">
 				<!--First panel-->
 				<!--Make these into buttons allow an extra button to only appear once one is selected-->
 				<h2
@@ -33,7 +37,7 @@
 				<button class="rounded-2xl bg-yellow-200 p-3 text-2xl" id="proceed-button">PROCEED</button>
 			</div>
 
-			<div id="second-page" class="flex hidden w-full flex-col items-center">
+			<div id="second-page" class="mb-11 flex hidden w-full flex-col items-center">
 				<h2 class="mb-8 font-['Open_Sans'] text-xl font-semibold xs:text-2xl sm:text-3xl">
 					Pick Player 1's sign
 				</h2>
@@ -51,29 +55,22 @@
 		</div>
 
 		<!--Board-->
-		<div class="hidden" id="board">
+		<div class="mx-12 mt-0 flex hidden flex-col items-center" id="board">
 			<!--Just make a board-->
 			<!--Still deciding if a restart button will be used or only once game is finished-->
-			<div>
-				<div>
-					<div>1</div>
-					<div>2</div>
-					<div>3</div>
-				</div>
-				<div>
-					<div>4</div>
-					<div>5</div>
-					<div>6</div>
-				</div>
-				<div>
-					<div>7</div>
-					<div>8</div>
-					<div>9</div>
-				</div>
+			<div
+				class="grid aspect-square w-full max-w-sm grid-cols-3 grid-rows-3 gap-1 rounded-lg bg-slate-400 p-1"
+			>
+				<div class="cell" id="cell-1"></div>
+				<div class="cell" id="cell-2"></div>
+				<div class="cell" id="cell-3"></div>
+				<div class="cell" id="cell-4"></div>
+				<div class="cell" id="cell-5"></div>
+				<div class="cell" id="cell-6"></div>
+				<div class="cell" id="cell-7"></div>
+				<div class="cell" id="cell-8"></div>
+				<div class="cell" id="cell-9"></div>
 			</div>
-
-			<button>Back to Main Menu</button>
-			<button>Restart</button>
 		</div>
 
 		<footer class="flex h-20 w-full items-center justify-center gap-2">

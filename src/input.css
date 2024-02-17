@@ -6,7 +6,7 @@
 #vs-player,
 #x-symbol,
 #o-symbol {
-	@apply m-3 h-36 w-36 rounded-2xl bg-zinc-200 bg-center bg-no-repeat;
+	@apply m-3 aspect-square w-36 rounded-2xl bg-zinc-200 bg-center bg-no-repeat;
 	background-size: 75%;
 }
 
@@ -36,4 +36,17 @@
 #o-symbol:hover,
 .selected-item {
 	filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(291deg) brightness(103%) contrast(103%);
+}
+
+.cell {
+	@apply bg-yellow-200 text-center align-baseline;
+}
+
+#back-arrow-button {
+	@apply aspect-square w-10 bg-center bg-no-repeat lg:w-12;
+	background-image: url("/svg/arrow-left.svg");
+	background-size: 100%;
+}
+#back-arrow-button:hover {
+	filter: invert(50%) sepia(85%) saturate(4122%) hue-rotate(350deg) brightness(98%) contrast(106%);
 }

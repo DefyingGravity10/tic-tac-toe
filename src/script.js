@@ -14,6 +14,7 @@ function initializeGame() {
 
 	// Elements needed by the game proper
 	const gameBoard = document.getElementById("board");
+	const backArrow = document.getElementById("back-arrow-button");
 	let chosenMode;
 	let chosenSymbol;
 
@@ -65,9 +66,16 @@ function initializeGame() {
 	startButton.addEventListener("click", () => {
 		secondPage.classList.add("hidden");
 		gameBoard.classList.remove("hidden");
+		backArrow.classList.remove("hidden");
 		chosenSymbol = xSymbol.classList.contains("selected-item") ? "X" : "O";
-		console.log(chosenMode);
-		console.log(chosenSymbol);
+	});
+
+	// For the game proper
+	// MAKE A POP-UP next time!
+	backArrow.addEventListener("click", () => {
+		firstPage.classList.remove("hidden");
+		gameBoard.classList.add("hidden");
+		backArrow.classList.add("hidden");
 	});
 }
 
