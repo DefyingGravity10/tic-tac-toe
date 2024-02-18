@@ -1,25 +1,14 @@
 function initializeGame() {
+	/* FIRST PAGE */
 	// Elements from first page
 	const firstPage = document.getElementById("first-page");
 	const againstComputer = document.getElementById("vs-computer");
 	const againstPlayer = document.getElementById("vs-player");
 	const opponent = document.getElementById("opponent");
 	const proceedButton = document.getElementById("proceed-button");
-	// Elements from second page
-	const secondPage = document.getElementById("second-page");
-	const backButton = document.getElementById("back-button");
-	const startButton = document.getElementById("start-button");
-	const xSymbol = document.getElementById("x-symbol");
-	const oSymbol = document.getElementById("o-symbol");
-
-	// Elements needed by the game proper
-	const gameBoard = document.getElementById("board");
-	const backArrow = document.getElementById("back-arrow-button");
 	let chosenMode;
-	let chosenSymbol;
 
-	// Event listners
-	// For first page
+	// Event Listeners
 	againstComputer.addEventListener("click", () => {
 		if (opponent.children.length === 1) {
 			opponent.removeChild(opponent.children[0]);
@@ -46,7 +35,16 @@ function initializeGame() {
 		chosenMode = againstComputer.classList.contains("selected-item") ? "Computer" : "Player";
 	});
 
-	// For second page
+	/* SECOND PAGE */
+	// Elements from second page
+	const secondPage = document.getElementById("second-page");
+	const backButton = document.getElementById("back-button");
+	const startButton = document.getElementById("start-button");
+	const xSymbol = document.getElementById("x-symbol");
+	const oSymbol = document.getElementById("o-symbol");
+	let chosenSymbol;
+
+	// Event listeners
 	backButton.addEventListener("click", () => {
 		firstPage.classList.remove("hidden");
 		secondPage.classList.add("hidden");
@@ -70,8 +68,12 @@ function initializeGame() {
 		chosenSymbol = xSymbol.classList.contains("selected-item") ? "X" : "O";
 	});
 
-	// For the game proper
-	// MAKE A POP-UP next time!
+	/* GAME PROPER */
+	// Elements needed by the game proper
+	const gameBoard = document.getElementById("board");
+	const backArrow = document.getElementById("back-arrow-button");
+
+	// Event listeners
 	backArrow.addEventListener("click", () => {
 		firstPage.classList.remove("hidden");
 		gameBoard.classList.add("hidden");
