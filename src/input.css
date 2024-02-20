@@ -50,3 +50,15 @@
 #back-arrow-button:hover {
 	filter: invert(50%) sepia(85%) saturate(4122%) hue-rotate(350deg) brightness(98%) contrast(106%);
 }
+
+.x-marker {
+	@apply bg-center bg-no-repeat;
+	background-image: url("/svg/cross.svg");
+	background-size: 60%;
+}
+
+.o-marker {
+	@apply bg-center bg-no-repeat;
+	background-image: url("/svg/circle.svg");
+	background-size: 60%;
+}
