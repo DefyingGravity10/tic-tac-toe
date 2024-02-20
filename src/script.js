@@ -188,11 +188,6 @@ function createBoard(name, mode, symbol) {
 	const changeBoardStatus = (symbol, rowIndex, columnIndex) => {
 		// Add on the element stuff
 		boardStatus[rowIndex][columnIndex] = `${symbol}`;
-
-		if (!firstMoveFinished) {
-			firstMoveFinished = true;
-		}
-
 		return boardStatus;
 	};
 	const hasWinner = (symbol, rowIndex, columnIndex) => {
