@@ -44,6 +44,7 @@ function initializeGame() {
 	const secondPage = document.getElementById("second-page");
 	const backButton = document.getElementById("back-button");
 	const startButton = document.getElementById("start-button");
+	const gameBoard = document.getElementById("board");
 	const xSymbol = document.getElementById("x-symbol");
 	const oSymbol = document.getElementById("o-symbol");
 	let ticTacToe;
@@ -57,20 +58,21 @@ function initializeGame() {
 	});
 	xSymbol.addEventListener("click", () => {
 		if (!xSymbol.classList.contains("selected-item")) {
-			xSymbol.classList.toggle("selected-item");
-			oSymbol.classList.toggle("selected-item");
+			xSymbol.classList.add("selected-item");
+			oSymbol.classList.remove("selected-item");
 		}
 	});
 	oSymbol.addEventListener("click", () => {
 		if (!oSymbol.classList.contains("selected-item")) {
-			xSymbol.classList.toggle("selected-item");
-			oSymbol.classList.toggle("selected-item");
+			xSymbol.classList.remove("selected-item");
+			oSymbol.classList.add("selected-item");
 		}
 	});
 	startButton.addEventListener("click", () => {
 		secondPage.classList.add("hidden");
 		gameBoard.classList.remove("hidden");
 		chosenSymbol = xSymbol.classList.contains("selected-item") ? "x" : "o";
+
 		if (firstLaunch === false) {
 			ticTacToe = createBoard("Tic Tac Toe", chosenMode, chosenSymbol);
 			firstLaunch = true;
@@ -80,12 +82,6 @@ function initializeGame() {
 			// Have to ensure that the players are starting with the right symbol
 		}
 	});
-
-	/* GAME PROPER */
-	// Elements needed by the game proper
-	const gameBoard = document.getElementById("board");
-
-	// Event listeners
 }
 
 function startGame(ticTacToe, firstPage, gameBoard) {
