@@ -42,7 +42,9 @@ function initializeGame() {
 	const startButton = document.getElementById("start-button");
 	const xSymbol = document.getElementById("x-symbol");
 	const oSymbol = document.getElementById("o-symbol");
+	let ticTacToe;
 	let chosenSymbol;
+	let firstLaunch = false;
 
 	// Event listeners
 	backButton.addEventListener("click", () => {
@@ -64,25 +66,39 @@ function initializeGame() {
 	startButton.addEventListener("click", () => {
 		secondPage.classList.add("hidden");
 		gameBoard.classList.remove("hidden");
-		backArrow.classList.remove("hidden");
 		chosenSymbol = xSymbol.classList.contains("selected-item") ? "x" : "o";
-		startGame(chosenMode, chosenSymbol);
+		if (firstLaunch === false) {
+			ticTacToe = createBoard("Tic Tac Toe", chosenMode, chosenSymbol);
+			firstLaunch = true;
+			startGame(ticTacToe);
+		} else {
+			startGame(ticTacToe);
+			// Have to ensure that the players are starting with the right symbol
+		}
 	});
 
 	/* GAME PROPER */
 	// Elements needed by the game proper
 	const gameBoard = document.getElementById("board");
-	const backArrow = document.getElementById("back-arrow-button");
 
 	// Event listeners
+}
+
+function startGame(ticTacToe) {
+	const firstPage = document.getElementById("first-page");
+	const gameBoard = document.getElementById("board");
+	const backArrow = document.getElementById("back-arrow-button");
+	backArrow.classList.remove("hidden");
 	backArrow.addEventListener("click", () => {
 		firstPage.classList.remove("hidden");
 		gameBoard.classList.add("hidden");
 		backArrow.classList.add("hidden");
+		if (ticTacToe) {
+			console.log("yay");
+			endGame(ticTacToe);
+		}
 	});
-}
 
-function startGame(chosenMode, chosenSymbol) {
 	// Must add a corresponding endGame function
 	const cell_1 = document.getElementById("cell-1");
 	const cell_2 = document.getElementById("cell-2");
@@ -100,7 +116,6 @@ function startGame(chosenMode, chosenSymbol) {
 		[cell_7, cell_8, cell_9]
 	];
 
-	const ticTacToe = createBoard("Tic Tac Toe", chosenMode, chosenSymbol);
 	let gameFinished = false;
 
 	for (let i = 0; i < 3; i++) {
@@ -141,10 +156,45 @@ function startGame(chosenMode, chosenSymbol) {
 					gameFinished = ticTacToe.hasWinner(ticTacToe.getCurrentPlayer(), i, j);
 					if (gameFinished) {
 						console.log("Winner!!!");
+						// ticTacToe.resetGame();
 					}
+					// if (ticTacToe.checkIfBoardFull()) {
+					// 	console.log("Full");
+					// }
 					ticTacToe.changeCurrentPlayer();
 				}
 			});
+		}
+	}
+}
+
+function endGame(ticTacToe) {
+	const backArrow = document.getElementById("back-arrow-button");
+	backArrow.classList.add("hidden");
+	ticTacToe.resetGame();
+
+	const cell_1 = document.getElementById("cell-1");
+	const cell_2 = document.getElementById("cell-2");
+	const cell_3 = document.getElementById("cell-3");
+	const cell_4 = document.getElementById("cell-4");
+	const cell_5 = document.getElementById("cell-5");
+	const cell_6 = document.getElementById("cell-6");
+	const cell_7 = document.getElementById("cell-7");
+	const cell_8 = document.getElementById("cell-8");
+	const cell_9 = document.getElementById("cell-9");
+
+	const cellArray = [
+		[cell_1, cell_2, cell_3],
+		[cell_4, cell_5, cell_6],
+		[cell_7, cell_8, cell_9]
+	];
+	for (let i = 0; i < 3; i++) {
+		for (let j = 0; j < 3; j++) {
+			if (cellArray[i][j].classList.contains("x-marker")) {
+				cellArray[i][j].classList.remove("x-marker");
+			} else if (cellArray[i][j].classList.contains("o-marker")) {
+				cellArray[i][j].classList.remove("o-marker");
+			}
 		}
 	}
 }
@@ -236,6 +286,9 @@ function createBoard(name, mode, symbol) {
 			? true
 			: false;
 	};
+	// const checkIfBoardFull = () => {
+	// 	return boardStatus.includes("#") ? false : true; //wrong
+	// };
 	const resetGame = () => {
 		// Unsure if needed
 		for (let i = 0; i < 3; i++) {
@@ -255,6 +308,7 @@ function createBoard(name, mode, symbol) {
 		checkIfValidMove,
 		changeBoardStatus,
 		hasWinner,
+		// checkIfBoardFull,
 		resetGame
 	};
 }
