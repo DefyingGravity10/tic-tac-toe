@@ -10,25 +10,29 @@ function initializeGame() {
 
 	// Event Listeners
 	againstComputer.addEventListener("click", () => {
-		if (opponent.children.length === 1) {
-			opponent.removeChild(opponent.children[0]);
-			const spn = document.createElement("span");
-			spn.appendChild(document.createTextNode("PLAYER VS COMPUTER"));
-			opponent.appendChild(spn);
-			againstComputer.classList.toggle("selected-item");
-			againstPlayer.classList.toggle("selected-item");
-		}
+		changeModeOnDisplay("computer");
 	});
 	againstPlayer.addEventListener("click", () => {
+		changeModeOnDisplay("player");
+	});
+	const changeModeOnDisplay = function (currentOpponent) {
 		if (opponent.children.length === 1) {
 			opponent.removeChild(opponent.children[0]);
 			const spn = document.createElement("span");
-			spn.appendChild(document.createTextNode("PLAYER VS PLAYER"));
+
+			if (currentOpponent === "computer") {
+				spn.appendChild(document.createTextNode("PLAYER VS COMPUTER"));
+				againstComputer.classList.add("selected-item");
+				againstPlayer.classList.remove("selected-item");
+			} else if (currentOpponent === "player") {
+				spn.appendChild(document.createTextNode("PLAYER VS PLAYER"));
+				againstComputer.classList.remove("selected-item");
+				againstPlayer.classList.add("selected-item");
+			}
 			opponent.appendChild(spn);
-			againstComputer.classList.toggle("selected-item");
-			againstPlayer.classList.toggle("selected-item");
 		}
-	});
+	};
+
 	proceedButton.addEventListener("click", () => {
 		firstPage.classList.add("hidden");
 		secondPage.classList.remove("hidden");
@@ -70,9 +74,9 @@ function initializeGame() {
 		if (firstLaunch === false) {
 			ticTacToe = createBoard("Tic Tac Toe", chosenMode, chosenSymbol);
 			firstLaunch = true;
-			startGame(ticTacToe);
+			startGame(ticTacToe, firstPage, gameBoard);
 		} else {
-			startGame(ticTacToe);
+			startGame(ticTacToe, firstPage, gameBoard);
 			// Have to ensure that the players are starting with the right symbol
 		}
 	});
@@ -84,9 +88,7 @@ function initializeGame() {
 	// Event listeners
 }
 
-function startGame(ticTacToe) {
-	const firstPage = document.getElementById("first-page");
-	const gameBoard = document.getElementById("board");
+function startGame(ticTacToe, firstPage, gameBoard) {
 	const backArrow = document.getElementById("back-arrow-button");
 	backArrow.classList.remove("hidden");
 	backArrow.addEventListener("click", () => {
