@@ -154,10 +154,13 @@ function startGame(ticTacToe, firstPage, gameBoard) {
 					cellArray[i][j].classList.add("spot-filled");
 					ticTacToe.changeBoardStatus(ticTacToe.getCurrentPlayer(), i, j);
 					console.log(ticTacToe.getBoardStatus());
-					gameFinished = ticTacToe.hasWinner(ticTacToe.getCurrentPlayer(), i, j);
+					gameFinished = ticTacToe.hasWinner(i, j);
 					if (gameFinished) {
 						console.log("Winner!!!");
-						// ticTacToe.resetGame();
+						endGame(ticTacToe);
+					} else if (ticTacToe.checkIfBoardFull()) {
+						console.log("Tie!!!");
+						endGame(ticTacToe);
 					}
 					ticTacToe.changeCurrentPlayer();
 				}
@@ -209,6 +212,7 @@ function createBoard(name, mode, symbol) {
 	];
 	let validMove = true;
 	let currentPlayer = symbol;
+	let boardSlotsLeft = 9;
 
 	const getCurrentPlayer = () => currentPlayer;
 	const changeCurrentPlayer = () => {
@@ -237,65 +241,61 @@ function createBoard(name, mode, symbol) {
 	const changeBoardStatus = (symbol, rowIndex, columnIndex) => {
 		// Add on the element stuff
 		boardStatus[rowIndex][columnIndex] = `${symbol}`;
+		boardSlotsLeft -= 1;
 		return boardStatus;
 	};
-	const hasWinner = (symbol, rowIndex, columnIndex) => {
+	const hasWinner = (rowIndex, columnIndex) => {
 		// Check if entire row has same symbol
-		let rowSame = 0;
+		let rowSame = true;
 		for (let i = 0; i < 3; i++) {
-			if (boardStatus[i][columnIndex] !== symbol) {
+			if (boardStatus[i][columnIndex] !== boardStatus[rowIndex][columnIndex]) {
+				rowSame = false;
 				break;
-			} else {
-				rowSame += 1;
 			}
 		}
-		if (rowSame == 3) return true;
+		if (rowSame) return true;
 
 		// Check if entire column has same symbol
-		let colSame = 0;
+		let colSame = true;
 		for (let i = 0; i < 3; i++) {
-			if (boardStatus[rowIndex][i] !== symbol) {
+			if (boardStatus[rowIndex][i] !== boardStatus[rowIndex][columnIndex]) {
+				colSame = false;
 				break;
-			} else {
-				colSame += 1;
 			}
 		}
-		if (colSame == 3) return true;
+		if (colSame) return true;
 
 		// Check if entire "diagonal" corresponding to input has the same symbol
-		let diagonalSame = 0;
+		let diagonalSame = true;
 		if ((rowIndex + columnIndex) % 2 != 0) {
 			return false;
-		}
-		if (rowIndex === columnIndex) {
+		} else if (rowIndex === columnIndex) {
 			for (let i = 0; i < 3; i++) {
-				if (boardStatus[i][i] !== symbol) {
+				if (boardStatus[i][i] !== boardStatus[rowIndex][columnIndex]) {
+					diagonalSame = false;
 					break;
-				} else {
-					diagonalSame += 1;
 				}
 			}
+			if (diagonalSame) return true;
 		}
-		if (diagonalSame == 3) return true;
 
-		diagonalSame = 0;
-		return boardStatus[0][2] === symbol &&
-			boardStatus[1][1] === symbol &&
-			boardStatus[2][0] === symbol
+		return boardStatus[0][2] === boardStatus[rowIndex][columnIndex] &&
+			boardStatus[1][1] === boardStatus[rowIndex][columnIndex] &&
+			boardStatus[2][0] === boardStatus[rowIndex][columnIndex]
 			? true
 			: false;
 	};
-	// const checkIfBoardFull = () => {
-	// 	return boardStatus.includes("#") ? false : true; //wrong
-	// };
+	const checkIfBoardFull = () => {
+		return boardSlotsLeft > 0 ? false : true;
+	};
 	const resetGame = () => {
-		// Unsure if needed
 		for (let i = 0; i < 3; i++) {
 			for (let j = 0; j < 3; j++) {
 				boardStatus[i][j] = "#";
 			}
 		}
 		validMove = true;
+		boardSlotsLeft = 9;
 	};
 
 	return {
@@ -307,7 +307,7 @@ function createBoard(name, mode, symbol) {
 		checkIfValidMove,
 		changeBoardStatus,
 		hasWinner,
-		// checkIfBoardFull,
+		checkIfBoardFull,
 		resetGame
 	};
 }
