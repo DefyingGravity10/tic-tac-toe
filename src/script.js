@@ -78,8 +78,10 @@ function initializeGame() {
 			firstLaunch = true;
 			startGame(ticTacToe, firstPage, gameBoard);
 		} else {
+			if (ticTacToe.getCurrentPlayer() !== chosenSymbol) {
+				ticTacToe.changeCurrentPlayer();
+			}
 			startGame(ticTacToe, firstPage, gameBoard);
-			// Have to ensure that the players are starting with the right symbol
 		}
 	});
 }
@@ -92,7 +94,6 @@ function startGame(ticTacToe, firstPage, gameBoard) {
 		gameBoard.classList.add("hidden");
 		backArrow.classList.add("hidden");
 		if (ticTacToe) {
-			console.log("yay");
 			endGame(ticTacToe);
 		}
 	});
