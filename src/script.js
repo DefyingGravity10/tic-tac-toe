@@ -170,6 +170,13 @@ function startGame(ticTacToe, firstPage, gameBoard) {
 }
 
 function endGame(ticTacToe) {
+	// Add a pop-up before moving to main page!
+	
+	const firstPage = document.getElementById("first-page");
+	const gameBoard = document.getElementById("board");
+	firstPage.classList.remove("hidden");
+	gameBoard.classList.add("hidden");
+
 	const backArrow = document.getElementById("back-arrow-button");
 	backArrow.classList.add("hidden");
 	ticTacToe.resetGame();
