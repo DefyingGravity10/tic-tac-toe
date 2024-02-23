@@ -73,6 +73,17 @@ function initializeGame() {
 		gameBoard.classList.remove("hidden");
 		chosenSymbol = xSymbol.classList.contains("selected-item") ? "x" : "o";
 
+		const backArrow = document.getElementById("back-arrow-button");
+		backArrow.classList.remove("hidden");
+		backArrow.addEventListener("click", () => {
+			firstPage.classList.remove("hidden");
+			gameBoard.classList.add("hidden");
+			backArrow.classList.add("hidden");
+			if (ticTacToe) {
+				endGame(ticTacToe);
+			}
+		});
+
 		if (firstLaunch === false) {
 			ticTacToe = createBoard("Tic Tac Toe", chosenMode, chosenSymbol);
 			firstLaunch = true;
@@ -81,24 +92,13 @@ function initializeGame() {
 			if (ticTacToe.getCurrentPlayer() !== chosenSymbol) {
 				ticTacToe.changeCurrentPlayer();
 			}
-			startGame(ticTacToe, firstPage, gameBoard);
 		}
 	});
 }
 
 function startGame(ticTacToe, firstPage, gameBoard) {
-	const backArrow = document.getElementById("back-arrow-button");
-	backArrow.classList.remove("hidden");
-	backArrow.addEventListener("click", () => {
-		firstPage.classList.remove("hidden");
-		gameBoard.classList.add("hidden");
-		backArrow.classList.add("hidden");
-		if (ticTacToe) {
-			endGame(ticTacToe);
-		}
-	});
-
-	// Must add a corresponding endGame function
+	console.log("start!");
+	//Must add a corresponding endGame function
 	const cell_1 = document.getElementById("cell-1");
 	const cell_2 = document.getElementById("cell-2");
 	const cell_3 = document.getElementById("cell-3");
@@ -122,24 +122,26 @@ function startGame(ticTacToe, firstPage, gameBoard) {
 			const showHoverSymbol = function () {
 				if (ticTacToe.getCurrentPlayer() === "x") {
 					if (ticTacToe.checkIfValidMove(ticTacToe.getCurrentPlayer(), i, j)) {
-						cellArray[i][j].classList.add("x-marker"); //ensure this is hover
+						cellArray[i][j].classList.add("x-marker");
 					}
 				} else if (ticTacToe.getCurrentPlayer() === "o") {
 					if (ticTacToe.checkIfValidMove(ticTacToe.getCurrentPlayer(), i, j)) {
-						cellArray[i][j].classList.add("o-marker"); //ensure this is hover
+						cellArray[i][j].classList.add("o-marker");
 					}
 				}
 			};
 			cellArray[i][j].addEventListener("mouseover", showHoverSymbol);
 
 			const hideHoverSymbol = function () {
-				if (ticTacToe.getCurrentPlayer() === "x") {
-					if (cellArray[i][j].classList.contains("x-marker")) {
-						cellArray[i][j].classList.remove("x-marker"); //ensure this is hover
-					}
-				} else if (ticTacToe.getCurrentPlayer() === "o") {
-					if (cellArray[i][j].classList.contains("o-marker")) {
-						cellArray[i][j].classList.remove("o-marker"); //ensure this is hover
+				if (!cellArray[i][j].classList.contains("spot-filled")) {
+					if (ticTacToe.getCurrentPlayer() === "x") {
+						if (cellArray[i][j].classList.contains("x-marker")) {
+							cellArray[i][j].classList.remove("x-marker");
+						}
+					} else if (ticTacToe.getCurrentPlayer() === "o") {
+						if (cellArray[i][j].classList.contains("o-marker")) {
+							cellArray[i][j].classList.remove("o-marker");
+						}
 					}
 				}
 			};
@@ -149,7 +151,7 @@ function startGame(ticTacToe, firstPage, gameBoard) {
 				showHoverSymbol();
 
 				if (ticTacToe.checkIfValidMove(ticTacToe.getCurrentPlayer(), i, j)) {
-					cellArray[i][j].removeEventListener("mouseout", hideHoverSymbol);
+					cellArray[i][j].classList.add("spot-filled");
 					ticTacToe.changeBoardStatus(ticTacToe.getCurrentPlayer(), i, j);
 					console.log(ticTacToe.getBoardStatus());
 					gameFinished = ticTacToe.hasWinner(ticTacToe.getCurrentPlayer(), i, j);
@@ -157,9 +159,6 @@ function startGame(ticTacToe, firstPage, gameBoard) {
 						console.log("Winner!!!");
 						// ticTacToe.resetGame();
 					}
-					// if (ticTacToe.checkIfBoardFull()) {
-					// 	console.log("Full");
-					// }
 					ticTacToe.changeCurrentPlayer();
 				}
 			});
@@ -194,6 +193,7 @@ function endGame(ticTacToe) {
 			} else if (cellArray[i][j].classList.contains("o-marker")) {
 				cellArray[i][j].classList.remove("o-marker");
 			}
+			cellArray[i][j].classList.remove("spot-filled");
 		}
 	}
 }
