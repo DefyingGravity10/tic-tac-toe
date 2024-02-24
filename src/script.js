@@ -45,11 +45,12 @@ function initializeGame() {
 	const backButton = document.getElementById("back-button");
 	const startButton = document.getElementById("start-button");
 	const gameBoard = document.getElementById("board");
+	const backArrow = document.getElementById("back-arrow-button");
 	const xSymbol = document.getElementById("x-symbol");
 	const oSymbol = document.getElementById("o-symbol");
 	let ticTacToe;
 	let chosenSymbol;
-	let firstLaunch = false;
+	let firstLaunch = true;
 
 	// Event listeners
 	backButton.addEventListener("click", () => {
@@ -69,36 +70,39 @@ function initializeGame() {
 		}
 	});
 	startButton.addEventListener("click", () => {
+		// Transition to game proper
 		secondPage.classList.add("hidden");
 		gameBoard.classList.remove("hidden");
 		chosenSymbol = xSymbol.classList.contains("selected-item") ? "x" : "o";
 
-		const backArrow = document.getElementById("back-arrow-button");
-		backArrow.classList.remove("hidden");
-		backArrow.addEventListener("click", () => {
-			firstPage.classList.remove("hidden");
-			gameBoard.classList.add("hidden");
-			backArrow.classList.add("hidden");
-			if (ticTacToe) {
-				endGame(ticTacToe);
-			}
-		});
-
-		if (firstLaunch === false) {
+		if (firstLaunch === true) {
 			ticTacToe = createBoard("Tic Tac Toe", chosenMode, chosenSymbol);
-			firstLaunch = true;
-			startGame(ticTacToe, firstPage, gameBoard);
+			firstLaunch = false;
+
+			// Reveal back arrow button to allow player to change modes or starting symbols
+			// Also add EventListener to it
+			backArrow.classList.remove("hidden");
+			backArrow.addEventListener("click", () => {
+				firstPage.classList.remove("hidden");
+				gameBoard.classList.add("hidden");
+				backArrow.classList.add("hidden");
+				endCurrentGame(ticTacToe);
+			});
+			// Launch the game. In this context, the game is only launched once and will only be hidden if necessary
+			launchGame(ticTacToe, firstPage, gameBoard);
 		} else {
+			// Check if the current player in game is the chosen symbol of the player.
+			// If it isn't, change the current player to the correct symbol
 			if (ticTacToe.getCurrentPlayer() !== chosenSymbol) {
 				ticTacToe.changeCurrentPlayer();
 			}
+			// Reveal the back arrow button once the game starts
+			backArrow.classList.remove("hidden");
 		}
 	});
 }
 
-function startGame(ticTacToe, firstPage, gameBoard) {
-	console.log("start!");
-	//Must add a corresponding endGame function
+function launchGame(ticTacToe, firstPage, gameBoard) {
 	const cell_1 = document.getElementById("cell-1");
 	const cell_2 = document.getElementById("cell-2");
 	const cell_3 = document.getElementById("cell-3");
@@ -157,10 +161,10 @@ function startGame(ticTacToe, firstPage, gameBoard) {
 					gameFinished = ticTacToe.hasWinner(i, j);
 					if (gameFinished) {
 						console.log("Winner!!!");
-						endGame(ticTacToe);
+						endCurrentGame(ticTacToe);
 					} else if (ticTacToe.checkIfBoardFull()) {
 						console.log("Tie!!!");
-						endGame(ticTacToe);
+						endCurrentGame(ticTacToe);
 					}
 					ticTacToe.changeCurrentPlayer();
 				}
@@ -169,9 +173,9 @@ function startGame(ticTacToe, firstPage, gameBoard) {
 	}
 }
 
-function endGame(ticTacToe) {
+function endCurrentGame(ticTacToe) {
 	// Add a pop-up before moving to main page!
-	
+
 	const firstPage = document.getElementById("first-page");
 	const gameBoard = document.getElementById("board");
 	firstPage.classList.remove("hidden");
