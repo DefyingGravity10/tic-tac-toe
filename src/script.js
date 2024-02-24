@@ -123,41 +123,54 @@ function launchGame(ticTacToe, firstPage, gameBoard) {
 
 	for (let i = 0; i < 3; i++) {
 		for (let j = 0; j < 3; j++) {
-			const showHoverSymbol = function () {
-				if (ticTacToe.getCurrentPlayer() === "x") {
-					if (ticTacToe.checkIfValidMove(ticTacToe.getCurrentPlayer(), i, j)) {
-						cellArray[i][j].classList.add("x-marker");
-					}
-				} else if (ticTacToe.getCurrentPlayer() === "o") {
-					if (ticTacToe.checkIfValidMove(ticTacToe.getCurrentPlayer(), i, j)) {
-						cellArray[i][j].classList.add("o-marker");
-					}
+			// A function that reveals the current symbol via hover
+			const revealSymbol = function () {
+				if (
+					ticTacToe.getCurrentPlayer() === "x" &&
+					ticTacToe.checkIfValidMove(ticTacToe.getCurrentPlayer(), i, j)
+				) {
+					cellArray[i][j].classList.add("x-marker");
+				} else if (
+					ticTacToe.getCurrentPlayer() === "o" &&
+					ticTacToe.checkIfValidMove(ticTacToe.getCurrentPlayer(), i, j)
+				) {
+					cellArray[i][j].classList.add("o-marker");
 				}
 			};
-			cellArray[i][j].addEventListener("mouseover", showHoverSymbol);
+			cellArray[i][j].addEventListener("mouseover", revealSymbol);
 
-			const hideHoverSymbol = function () {
+			// A function that hides the current symbol via hoverout
+			// It only works if a cell remains to be vacant (checked by conditional involving spot-filled)
+			const hideSymbol = function () {
 				if (!cellArray[i][j].classList.contains("spot-filled")) {
-					if (ticTacToe.getCurrentPlayer() === "x") {
-						if (cellArray[i][j].classList.contains("x-marker")) {
-							cellArray[i][j].classList.remove("x-marker");
-						}
-					} else if (ticTacToe.getCurrentPlayer() === "o") {
-						if (cellArray[i][j].classList.contains("o-marker")) {
-							cellArray[i][j].classList.remove("o-marker");
-						}
+					if (
+						ticTacToe.getCurrentPlayer() === "x" &&
+						cellArray[i][j].classList.contains("x-marker")
+					) {
+						cellArray[i][j].classList.remove("x-marker");
+					} else if (
+						ticTacToe.getCurrentPlayer() === "o" &&
+						cellArray[i][j].classList.contains("o-marker")
+					) {
+						cellArray[i][j].classList.remove("o-marker");
 					}
 				}
 			};
-			cellArray[i][j].addEventListener("mouseout", hideHoverSymbol);
+			cellArray[i][j].addEventListener("mouseout", hideSymbol);
 
 			cellArray[i][j].addEventListener("click", () => {
-				showHoverSymbol();
+				// Reveal symbol once a cell is clicked
+				revealSymbol();
 
 				if (ticTacToe.checkIfValidMove(ticTacToe.getCurrentPlayer(), i, j)) {
+					// Add class spot-filled to notify the system whether a cell is filled
 					cellArray[i][j].classList.add("spot-filled");
-					ticTacToe.changeBoardStatus(ticTacToe.getCurrentPlayer(), i, j);
 					console.log(ticTacToe.getBoardStatus());
+
+					// Swap plaer
+					ticTacToe.changeBoardStatus(ticTacToe.getCurrentPlayer(), i, j);
+
+					// Check if game is finished
 					gameFinished = ticTacToe.hasWinner(i, j);
 					if (gameFinished) {
 						console.log("Winner!!!");
