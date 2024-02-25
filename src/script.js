@@ -91,11 +91,16 @@ function initializeGame() {
 			// Launch the game. In this context, the game is only launched once and will only be hidden if necessary
 			launchGame(ticTacToe, firstPage, gameBoard);
 		} else {
-			// Check if the current player in game is the chosen symbol of the player.
-			// If it isn't, change the current player to the correct symbol
+			// Check if the current mode and player in game is the chosen mode and player
+			// If it isn't, change the parameters to what is necessary
+			if (ticTacToe.getCurrentMode() !== chosenMode) {
+				ticTacToe.changeCurrentMode();
+			}
 			if (ticTacToe.getCurrentPlayer() !== chosenSymbol) {
 				ticTacToe.changeCurrentPlayer();
+				ticTacToe.changeAiSymbol();
 			}
+
 			// Reveal the back arrow button once the game starts
 			backArrow.classList.remove("hidden");
 		}
@@ -120,6 +125,7 @@ function launchGame(ticTacToe, firstPage, gameBoard) {
 	];
 
 	let gameFinished = false;
+	let aiChosenIndex;
 
 	for (let i = 0; i < 3; i++) {
 		for (let j = 0; j < 3; j++) {
@@ -166,8 +172,6 @@ function launchGame(ticTacToe, firstPage, gameBoard) {
 					// Add class spot-filled to notify the system whether a cell is filled
 					cellArray[i][j].classList.add("spot-filled");
 					console.log(ticTacToe.getBoardStatus());
-
-					// Swap plaer
 					ticTacToe.changeBoardStatus(ticTacToe.getCurrentPlayer(), i, j);
 
 					// Check if game is finished
@@ -178,8 +182,37 @@ function launchGame(ticTacToe, firstPage, gameBoard) {
 					} else if (ticTacToe.checkIfBoardFull()) {
 						console.log("Tie!!!");
 						endCurrentGame(ticTacToe);
+					} else {
+						ticTacToe.changeCurrentPlayer();
 					}
-					ticTacToe.changeCurrentPlayer();
+
+					if (
+						ticTacToe.getCurrentMode() === "Computer" &&
+						ticTacToe.getCurrentPlayer() === ticTacToe.getAiSymbol()
+					) {
+						aiChosenIndex = ticTacToe.chooseNextMove();
+						if (ticTacToe.getAiSymbol() === "x") {
+							cellArray[aiChosenIndex[0]][aiChosenIndex[1]].classList.add("x-marker");
+						} else {
+							cellArray[aiChosenIndex[0]][aiChosenIndex[1]].classList.add("o-marker");
+						}
+						cellArray[aiChosenIndex[0]][aiChosenIndex[1]].classList.add("spot-filled");
+						ticTacToe.changeBoardStatus(
+							ticTacToe.getCurrentPlayer(),
+							aiChosenIndex[0],
+							aiChosenIndex[1]
+						);
+						console.log(ticTacToe.getBoardStatus());
+						gameFinished = ticTacToe.hasWinner(aiChosenIndex[0], aiChosenIndex[1]);
+						if (gameFinished) {
+							console.log("Winner!!!");
+							endCurrentGame(ticTacToe);
+						} else if (ticTacToe.checkIfBoardFull()) {
+							console.log("Tie!!!");
+							endCurrentGame(ticTacToe);
+						}
+						ticTacToe.changeCurrentPlayer();
+					}
 				}
 			});
 		}
@@ -227,17 +260,25 @@ function endCurrentGame(ticTacToe) {
 
 function createBoard(name, mode, symbol) {
 	this.name = name;
-	this.mode = mode;
 
 	const boardStatus = [
 		["#", "#", "#"],
 		["#", "#", "#"],
 		["#", "#", "#"]
 	];
+	let aiSymbol = symbol === "x" ? "o" : "x";
 	let validMove = true;
 	let currentPlayer = symbol;
+	let currentMode = mode;
 	let boardSlotsLeft = 9;
+	let chosenIndex = [];
 
+	// functions used in both modes
+	const getAiSymbol = () => aiSymbol;
+	const changeAiSymbol = () => {
+		aiSymbol = currentPlayer === "x" ? "o" : "x";
+		return aiSymbol;
+	};
 	const getCurrentPlayer = () => currentPlayer;
 	const changeCurrentPlayer = () => {
 		if (currentPlayer === "x") {
@@ -246,6 +287,15 @@ function createBoard(name, mode, symbol) {
 			currentPlayer = "x";
 		}
 		return currentPlayer;
+	};
+	const getCurrentMode = () => currentMode;
+	const changeCurrentMode = () => {
+		if (currentMode === "Computer") {
+			currentMode = "Player";
+		} else {
+			currentMode = "Computer";
+		}
+		return currentMode;
 	};
 	const getBoardStatus = () => boardStatus;
 	const checkIfValidMove = (symbol, rowIndex, columnIndex) => {
@@ -322,17 +372,36 @@ function createBoard(name, mode, symbol) {
 		boardSlotsLeft = 9;
 	};
 
+	// functions used for AI only
+	let positionsOfSymbols = [];
+	const chooseNextMove = () => {
+		positionsOfSymbols = [];
+		for (let i = 0; i < 3; i++) {
+			for (let j = 0; j < 3; j++) {
+				if (boardStatus[i][j] === "#") {
+					positionsOfSymbols.push([i, j]);
+				}
+			}
+		}
+		return positionsOfSymbols[Math.floor(Math.random() * positionsOfSymbols.length)];
+	};
+
 	return {
 		name,
 		mode,
+		getAiSymbol,
+		changeAiSymbol,
 		getCurrentPlayer,
 		changeCurrentPlayer,
+		getCurrentMode,
+		changeCurrentMode,
 		getBoardStatus,
 		checkIfValidMove,
 		changeBoardStatus,
 		hasWinner,
 		checkIfBoardFull,
-		resetGame
+		resetGame,
+		chooseNextMove
 	};
 }
 
