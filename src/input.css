@@ -35,7 +35,7 @@
 #x-symbol:hover,
 #o-symbol:hover,
 .selected-item {
-	@apply bg-fuchsia-700;
+	@apply bg-emerald-700;
 }
 
 .cell {

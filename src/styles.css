@@ -770,7 +770,7 @@ video {
 #o-symbol:hover,
 .selected-item {
   --tw-bg-opacity: 1;
-  background-color: rgb(162 28 175 / var(--tw-bg-opacity));
+  background-color: rgb(4 120 87 / var(--tw-bg-opacity));
 }
 
 .cell {
