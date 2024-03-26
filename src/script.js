@@ -266,12 +266,12 @@ function createBoard(name, mode, symbol) {
 		["#", "#", "#"],
 		["#", "#", "#"]
 	];
+	let chosenIndex = [];
 	let aiSymbol = symbol === "x" ? "o" : "x";
 	let validMove = true;
 	let currentPlayer = symbol;
 	let currentMode = mode;
 	let boardSlotsLeft = 9;
-	let chosenIndex = [];
 
 	// functions used in both modes
 	const getAiSymbol = () => aiSymbol;
@@ -316,6 +316,7 @@ function createBoard(name, mode, symbol) {
 		// Add on the element stuff
 		boardStatus[rowIndex][columnIndex] = `${symbol}`;
 		boardSlotsLeft -= 1;
+
 		return boardStatus;
 	};
 	const hasWinner = (rowIndex, columnIndex) => {

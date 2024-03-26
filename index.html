@@ -8,13 +8,15 @@
 		<script src="./src/script.js" defer></script>
 	</head>
 
-	<body>
+	<body class="bg-fuchsia-100">
 		<!--Start screen should disappear once stuff start working-->
 		<div class="m-12 mb-0 flex flex-col items-center">
 			<!--Title-->
 			<div class="relative flex w-full items-center justify-center">
 				<button id="back-arrow-button" class="absolute left-0 mb-8 hidden"></button>
-				<h1 class="mb-8 font-['Open_Sans'] text-3xl font-bold xs:text-4xl sm:text-5xl">
+				<h1
+					class="mb-8 font-['Open_Sans'] text-3xl font-bold text-fuchsia-950 xs:text-4xl sm:text-5xl"
+				>
 					TIC TAC TOE
 				</h1>
 			</div>
@@ -24,17 +26,22 @@
 				<!--Make these into buttons allow an extra button to only appear once one is selected-->
 				<h2
 					id="opponent"
-					class="mb-8 font-['Open_Sans'] text-xl font-semibold xs:text-2xl sm:text-3xl"
+					class="mb-8 font-['Open_Sans'] text-xl font-semibold text-fuchsia-950 xs:text-2xl sm:text-3xl"
 				>
 					<span>PLAYER VS COMPUTER</span>
 				</h2>
 				<div
-					class="mb-8 flex w-full max-w-md items-center justify-around rounded-2xl bg-slate-400 p-1 sm:w-fit"
+					class="mb-8 flex w-full max-w-md items-center justify-around rounded-2xl bg-fuchsia-800 p-1 xs-mid:w-fit"
 				>
 					<button id="vs-computer" class="selected-item"></button>
 					<button id="vs-player"></button>
 				</div>
-				<button class="rounded-2xl bg-yellow-200 p-3 text-2xl" id="proceed-button">PROCEED</button>
+				<button
+					class="w-4/5 rounded-2xl bg-emerald-600 p-3 font-['Open_Sans'] text-2xl text-fuchsia-100 hover:bg-emerald-500 sm:w-3/5 md:w-1/3"
+					id="proceed-button"
+				>
+					PROCEED
+				</button>
 			</div>
 
 			<div id="second-page" class="mb-11 flex hidden w-full flex-col items-center">
@@ -42,14 +49,24 @@
 					Pick Player 1's sign
 				</h2>
 				<div
-					class="mb-8 flex w-full max-w-md items-center justify-around rounded-2xl bg-slate-400 p-1 sm:w-fit"
+					class="mb-8 flex w-full max-w-md items-center justify-around rounded-2xl bg-fuchsia-800 p-1 xs-mid:w-fit"
 				>
 					<button class="selected-item" id="x-symbol"></button>
 					<button id="o-symbol"></button>
 				</div>
-				<div class="flex w-full max-w-md justify-around">
-					<button class="rounded-2xl bg-red-200 p-3 text-2xl" id="back-button">Back</button>
-					<button class="rounded-2xl bg-green-200 p-3 text-2xl" id="start-button">Start</button>
+				<div class="flex w-full max-w-md justify-around font-['Open_Sans'] text-fuchsia-100">
+					<button
+						class="rounded-2xl bg-emerald-600 p-3 text-2xl hover:bg-emerald-500"
+						id="back-button"
+					>
+						Back
+					</button>
+					<button
+						class="rounded-2xl bg-emerald-600 p-3 text-2xl hover:bg-emerald-500"
+						id="start-button"
+					>
+						Start
+					</button>
 				</div>
 			</div>
 		</div>
@@ -59,7 +76,7 @@
 			<!--Just make a board-->
 			<!--Still deciding if a restart button will be used or only once game is finished-->
 			<div
-				class="grid aspect-square w-full max-w-sm grid-cols-3 grid-rows-3 gap-1 rounded-lg bg-slate-400 p-1"
+				class="grid aspect-square w-full max-w-sm grid-cols-3 grid-rows-3 gap-1 rounded-lg bg-fuchsia-900 p-1"
 			>
 				<div class="cell" id="cell-1"></div>
 				<div class="cell" id="cell-2"></div>
@@ -73,7 +90,9 @@
 			</div>
 		</div>
 
-		<footer class="flex h-20 w-full items-center justify-center gap-2">
+		<footer
+			class="flex h-20 w-full items-center justify-center gap-2 font-['Open_Sans'] text-fuchsia-950"
+		>
 			<div>
 				© Copyright 2024
 				<a

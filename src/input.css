@@ -6,7 +6,7 @@
 #vs-player,
 #x-symbol,
 #o-symbol {
-	@apply m-3 aspect-square w-36 rounded-2xl bg-zinc-200 bg-center bg-no-repeat;
+	@apply m-3 aspect-square w-36 rounded-2xl bg-center bg-no-repeat;
 	background-size: 75%;
 }
 
@@ -20,13 +20,13 @@
 }
 
 #x-symbol {
-	background-image: url("/svg/cross.svg");
+	background-image: url("/svg/X.svg");
 	background-size: 60%;
 }
 
 #o-symbol {
 	@apply ml-0;
-	background-image: url("/svg/circle.svg");
+	background-image: url("/svg/O.svg");
 	background-size: 60%;
 }
 
@@ -35,11 +35,12 @@
 #x-symbol:hover,
 #o-symbol:hover,
 .selected-item {
-	filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(291deg) brightness(103%) contrast(103%);
+	@apply bg-fuchsia-700;
 }
 
 .cell {
-	@apply bg-yellow-200 text-center align-baseline;
+	@apply text-center align-baseline;
+	background-color: white;
 }
 
 #back-arrow-button {
@@ -48,7 +49,7 @@
 	background-size: 100%;
 }
 #back-arrow-button:hover {
-	filter: invert(50%) sepia(85%) saturate(4122%) hue-rotate(350deg) brightness(98%) contrast(106%);
+	filter: invert(56%) sepia(62%) saturate(491%) hue-rotate(109deg) brightness(89%) contrast(109%);
 }
 
 .x-marker {
