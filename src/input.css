@@ -46,7 +46,6 @@
 #back-arrow-button {
 	@apply aspect-square w-10 bg-center bg-no-repeat lg:w-12;
 	background-image: url("/svg/arrow-left.svg");
-	background-size: 100%;
 }
 #back-arrow-button:hover {
 	filter: invert(56%) sepia(62%) saturate(491%) hue-rotate(109deg) brightness(89%) contrast(109%);

@@ -11,6 +11,13 @@ module.exports = {
 			xl: "1280px",
 			"2xl": "1536px"
 		},
+		backgroundSize: {
+			auto: "auto",
+			cover: "cover",
+			contain: "contain",
+			part: "75%",
+			full: "100%"
+		},
 		extend: {}
 	},
 	plugins: []
