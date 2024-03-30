@@ -182,7 +182,6 @@ function launchGame(ticTacToe, firstPage, gameBoard) {
 						declareStatus(ticTacToe, 0, lastPlayer);
 					} else if (ticTacToe.checkIfBoardFull()) {
 						declareStatus(ticTacToe, 1, lastPlayer);
-						endCurrentGame(ticTacToe);
 					} else {
 						ticTacToe.changeCurrentPlayer();
 					}
