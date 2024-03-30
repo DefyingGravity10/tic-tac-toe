@@ -228,11 +228,16 @@ function declareStatus(ticTacToe, status, player) {
 			break;
 		case 1:
 			heading.textContent = `We have a tie!`;
+			break;
 		default:
 			heading.textContent = `TIC TAC TOE`;
 	}
 	const boardCover = document.getElementById("board-cover");
 	boardCover.classList.remove("hidden");
+
+	const backArrow = document.getElementById("back-arrow-button");
+	backArrow.classList.add("animate-pulse");
+	backArrow.classList.remove("animate-none");
 }
 
 function endCurrentGame(ticTacToe) {
@@ -243,6 +248,8 @@ function endCurrentGame(ticTacToe) {
 
 	const backArrow = document.getElementById("back-arrow-button");
 	backArrow.classList.add("hidden");
+	backArrow.classList.remove("animate-pulse");
+	backArrow.classList.add("animate-none");
 
 	const cell_1 = document.getElementById("cell-1");
 	const cell_2 = document.getElementById("cell-2");
