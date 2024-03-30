@@ -171,16 +171,17 @@ function launchGame(ticTacToe, firstPage, gameBoard) {
 				if (ticTacToe.checkIfValidMove(ticTacToe.getCurrentPlayer(), i, j)) {
 					// Add class spot-filled to notify the system whether a cell is filled
 					cellArray[i][j].classList.add("spot-filled");
-					console.log(ticTacToe.getBoardStatus());
 					ticTacToe.changeBoardStatus(ticTacToe.getCurrentPlayer(), i, j);
 
 					// Check if game is finished
-					gameFinished = ticTacToe.hasWinner(i, j);
+					winner = ticTacToe.hasWinner(i, j);
+					gameFinished = winner[0];
+					lastPlayer = winner[1];
+
 					if (gameFinished) {
-						console.log("Winner!!!");
-						endCurrentGame(ticTacToe);
+						declareStatus(ticTacToe, 0, lastPlayer);
 					} else if (ticTacToe.checkIfBoardFull()) {
-						console.log("Tie!!!");
+						declareStatus(ticTacToe, 1, lastPlayer);
 						endCurrentGame(ticTacToe);
 					} else {
 						ticTacToe.changeCurrentPlayer();
@@ -202,14 +203,15 @@ function launchGame(ticTacToe, firstPage, gameBoard) {
 							aiChosenIndex[0],
 							aiChosenIndex[1]
 						);
-						console.log(ticTacToe.getBoardStatus());
-						gameFinished = ticTacToe.hasWinner(aiChosenIndex[0], aiChosenIndex[1]);
+
+						winner = ticTacToe.hasWinner(aiChosenIndex[0], aiChosenIndex[1]);
+						gameFinished = winner[0];
+						lastPlayer = winner[1];
+
 						if (gameFinished) {
-							console.log("Winner!!!");
-							endCurrentGame(ticTacToe);
+							declareStatus(ticTacToe, 0, lastPlayer);
 						} else if (ticTacToe.checkIfBoardFull()) {
-							console.log("Tie!!!");
-							endCurrentGame(ticTacToe);
+							declareStatus(ticTacToe, 1, lastPlayer);
 						}
 						ticTacToe.changeCurrentPlayer();
 					}
@@ -219,9 +221,22 @@ function launchGame(ticTacToe, firstPage, gameBoard) {
 	}
 }
 
-function endCurrentGame(ticTacToe) {
-	// Add a pop-up before moving to main page!
+function declareStatus(ticTacToe, status, player) {
+	const heading = document.getElementById("heading");
+	switch (status) {
+		case 0:
+			heading.textContent = `${lastPlayer.toUpperCase()} wins!!`;
+			break;
+		case 1:
+			heading.textContent = `We have a tie!`;
+		default:
+			heading.textContent = `TIC TAC TOE`;
+	}
+	const boardCover = document.getElementById("board-cover");
+	boardCover.classList.remove("hidden");
+}
 
+function endCurrentGame(ticTacToe) {
 	const firstPage = document.getElementById("first-page");
 	const gameBoard = document.getElementById("board");
 	firstPage.classList.remove("hidden");
@@ -229,7 +244,6 @@ function endCurrentGame(ticTacToe) {
 
 	const backArrow = document.getElementById("back-arrow-button");
 	backArrow.classList.add("hidden");
-	ticTacToe.resetGame();
 
 	const cell_1 = document.getElementById("cell-1");
 	const cell_2 = document.getElementById("cell-2");
@@ -256,6 +270,14 @@ function endCurrentGame(ticTacToe) {
 			cellArray[i][j].classList.remove("spot-filled");
 		}
 	}
+
+	const heading = document.getElementById("heading");
+	heading.textContent = `TIC TAC TOE`;
+
+	const boardCover = document.getElementById("board-cover");
+	boardCover.classList.add("hidden");
+
+	ticTacToe.resetGame();
 }
 
 function createBoard(name, mode, symbol) {
@@ -328,7 +350,7 @@ function createBoard(name, mode, symbol) {
 				break;
 			}
 		}
-		if (rowSame) return true;
+		if (rowSame) return [true, boardStatus[rowIndex][columnIndex]];
 
 		// Check if entire column has same symbol
 		let colSame = true;
@@ -338,7 +360,7 @@ function createBoard(name, mode, symbol) {
 				break;
 			}
 		}
-		if (colSame) return true;
+		if (colSame) return [true, boardStatus[rowIndex][columnIndex]];
 
 		// Check if entire "diagonal" corresponding to input has the same symbol
 		let diagonalSame = true;
@@ -351,14 +373,14 @@ function createBoard(name, mode, symbol) {
 					break;
 				}
 			}
-			if (diagonalSame) return true;
+			if (diagonalSame) return [true, boardStatus[rowIndex][columnIndex]];
 		}
 
 		return boardStatus[0][2] === boardStatus[rowIndex][columnIndex] &&
 			boardStatus[1][1] === boardStatus[rowIndex][columnIndex] &&
 			boardStatus[2][0] === boardStatus[rowIndex][columnIndex]
-			? true
-			: false;
+			? [true, boardStatus[rowIndex][columnIndex]]
+			: [false, boardStatus[rowIndex][columnIndex]];
 	};
 	const checkIfBoardFull = () => {
 		return boardSlotsLeft > 0 ? false : true;

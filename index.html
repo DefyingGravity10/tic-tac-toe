@@ -16,6 +16,7 @@
 				<button id="back-arrow-button" class="absolute left-0 mb-8 hidden"></button>
 				<h1
 					class="mb-8 font-['Open_Sans'] text-3xl font-bold text-fuchsia-950 xs:text-4xl sm:text-5xl"
+					id="heading"
 				>
 					TIC TAC TOE
 				</h1>
@@ -73,8 +74,6 @@
 
 		<!--Board-->
 		<div class="mx-12 mt-0 flex hidden flex-col items-center" id="board">
-			<!--Just make a board-->
-			<!--Still deciding if a restart button will be used or only once game is finished-->
 			<div
 				class="grid aspect-square w-full max-w-sm grid-cols-3 grid-rows-3 gap-1 rounded-lg bg-fuchsia-900 p-1"
 			>
@@ -88,6 +87,7 @@
 				<div class="cell" id="cell-8"></div>
 				<div class="cell" id="cell-9"></div>
 			</div>
+			<div id="board-cover" class="fixed bottom-2 left-0 hidden h-4/5 w-full bg-opacity-0"></div>
 		</div>
 
 		<footer
